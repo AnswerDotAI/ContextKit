@@ -1,0 +1,32 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "ContextKit",
+    "section": "",
+    "text": "Install latest from the GitHub [repository][repo]:\n\nClone the repo\npip install -e\n\n\n\n\nTo get context from an LLM, use one of the helper functions to pull it.\nIf a function pulls a single context snippit it will return the text, if it return multiple it will return a dictionary.\n\nimport ContextKit.core as ck\n\n\n\n\nnbclassic_server_docs = ck.nbclassic_server()\n\nRead $nbclassic_server_docs and give me a short summary of what is in it. End with ‘Loaded into Context’ in a new paragraph\nThe nbclassic_server_docs contain information about the Jupyter NbClassic package, which implements the classic Jupyter Notebook 6 as a Jupyter Server extension. It covers installation, configuration, usage options, development details, and the timeline for supporting nbclassic during the transition to Jupyter Notebook 7. The document also mentions the compatibility issues between Notebook 6 and 7, and the need for nbclassic to support users during this transition period.\nLoaded into Context\n\n\n\n\nfc_ctx = ck.fastcore()\n\nRead $fc_ctx and give me a short summary of what is in it. End with ‘Loaded into Context’ in a new paragraph\nThe fc_ctx contains comprehensive documentation for the fastcore library, which is part of the fast.ai ecosystem. It includes detailed explanations and examples for various modules such as basics, foundation, dispatch, meta, parallel, script, xtras, and more. The documentation covers utility functions, classes, decorators, and tools for tasks like type dispatch, attribute delegation, metaprogramming, parallel processing, CLI creation, and XML generation. It also includes information on testing utilities and extensions to Python’s standard library.\nLoaded into Context\n\n\n\n\ndiscord = AttrDict(ck.discord())\ndiscord.keys()\n\ndict_keys(['app', 'oauth', 'user', 'interact'])\n\n\n\ndiscord.app[:200]\n\n'# Discord Application Commands\\n\\nApplication commands are native ways to interact with apps in the Discord client. There are 3 types of commands accessible in different interfaces: the chat input, a me'\n\n\n\nuser, oauth = discord.user, discord.oauth\n\nExplain the difference between what’s in $user vs $oauth\nThe user variable contains information about developing a user-installable Discord app, including details on setting up the project, creating commands, handling interactions, and using metadata.\nThe oauth variable contains information about Discord’s OAuth2 implementation, including different authorization flows, scopes, token handling, and API endpoints related to OAuth2 authentication.",
+    "crumbs": [
+      "ContextKit"
+    ]
+  },
+  {
+    "objectID": "index.html#usage",
+    "href": "index.html#usage",
+    "title": "ContextKit",
+    "section": "",
+    "text": "Install latest from the GitHub [repository][repo]:\n\nClone the repo\npip install -e\n\n\n\n\nTo get context from an LLM, use one of the helper functions to pull it.\nIf a function pulls a single context snippit it will return the text, if it return multiple it will return a dictionary.\n\nimport ContextKit.core as ck\n\n\n\n\nnbclassic_server_docs = ck.nbclassic_server()\n\nRead $nbclassic_server_docs and give me a short summary of what is in it. End with ‘Loaded into Context’ in a new paragraph\nThe nbclassic_server_docs contain information about the Jupyter NbClassic package, which implements the classic Jupyter Notebook 6 as a Jupyter Server extension. It covers installation, configuration, usage options, development details, and the timeline for supporting nbclassic during the transition to Jupyter Notebook 7. The document also mentions the compatibility issues between Notebook 6 and 7, and the need for nbclassic to support users during this transition period.\nLoaded into Context\n\n\n\n\nfc_ctx = ck.fastcore()\n\nRead $fc_ctx and give me a short summary of what is in it. End with ‘Loaded into Context’ in a new paragraph\nThe fc_ctx contains comprehensive documentation for the fastcore library, which is part of the fast.ai ecosystem. It includes detailed explanations and examples for various modules such as basics, foundation, dispatch, meta, parallel, script, xtras, and more. The documentation covers utility functions, classes, decorators, and tools for tasks like type dispatch, attribute delegation, metaprogramming, parallel processing, CLI creation, and XML generation. It also includes information on testing utilities and extensions to Python’s standard library.\nLoaded into Context\n\n\n\n\ndiscord = AttrDict(ck.discord())\ndiscord.keys()\n\ndict_keys(['app', 'oauth', 'user', 'interact'])\n\n\n\ndiscord.app[:200]\n\n'# Discord Application Commands\\n\\nApplication commands are native ways to interact with apps in the Discord client. There are 3 types of commands accessible in different interfaces: the chat input, a me'\n\n\n\nuser, oauth = discord.user, discord.oauth\n\nExplain the difference between what’s in $user vs $oauth\nThe user variable contains information about developing a user-installable Discord app, including details on setting up the project, creating commands, handling interactions, and using metadata.\nThe oauth variable contains information about Discord’s OAuth2 implementation, including different authorization flows, scopes, token handling, and API endpoints related to OAuth2 authentication.",
+    "crumbs": [
+      "ContextKit"
+    ]
+  },
+  {
+    "objectID": "core.html",
+    "href": "core.html",
+    "title": "core",
+    "section": "",
+    "text": "source\n\nread_gist\n\n read_gist (s, user)\n\n\nsource\n\n\nnbclassic_server\n\n nbclassic_server ()\n\n\nsource\n\n\nminai\n\n minai ()\n\n\nsource\n\n\ndocker\n\n docker ()\n\n\nsource\n\n\nfastlite_sqlutils\n\n fastlite_sqlutils ()\n\n\nsource\n\n\nfasthtml\n\n fasthtml ()\n\n\nsource\n\n\nfastcore\n\n fastcore ()\n\n\nsource\n\n\nclaudette\n\n claudette ()",
+    "crumbs": [
+      "core"
+    ]
+  }
+]
