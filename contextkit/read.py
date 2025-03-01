@@ -4,7 +4,7 @@
 
 # %% auto 0
 __all__ = ['read_url', 'read_gist', 'read_gh_file', 'read_file', 'is_unicode', 'read_dir', 'read_pdf', 'read_yt_transcript',
-           'read_google_sheet', 'read_gdoc']
+           'read_google_sheet', 'read_gdoc', 'read_arxiv']
 
 # %% ../nbs/00_read.ipynb 5
 import httpx 
@@ -126,3 +126,78 @@ def read_gdoc(url):
     html_doc_content = requests.get(export_url).text
     doc_content = html2text.html2text(html_doc_content)
     return doc_content
+
+# %% ../nbs/00_read.ipynb 45
+def read_arxiv(url, save_pdf=False, save_dir='.'):
+    "Get paper information from arxiv URL or ID, optionally saving PDF to disk"
+    import re, httpx, tarfile, io, os
+    import xml.etree.ElementTree as ET
+    
+    # Create save directory if needed
+    if save_pdf:
+        os.makedirs(save_dir, exist_ok=True)
+    
+    # Extract arxiv ID from URL or use directly if it's an ID
+    arxiv_id = url.split('/')[-1] if '/' in url else url
+    
+    # Remove version number if present but save it for downloads
+    version = re.search(r'v(\d+)$', arxiv_id)
+    version_num = version.group(1) if version else None
+    arxiv_id = re.sub(r'v\d+$', '', arxiv_id)
+    
+    # Construct API query URL
+    api_url = f'http://export.arxiv.org/api/query?id_list={arxiv_id}'
+    
+    # Get response
+    response = httpx.get(api_url)
+    
+    if response.status_code != 200:
+        raise Exception(f"Failed to fetch arxiv data: {response.status_code}")
+    
+    # Parse XML response
+    root = ET.fromstring(response.text)
+    ns = {'arxiv': 'http://www.w3.org/2005/Atom'}
+    entry = root.find('arxiv:entry', ns)
+    if entry is None:
+        raise Exception("No paper found")
+    
+    # Extract links including PDF
+    links = entry.findall('arxiv:link', ns)
+    pdf_url = next((l.get('href') for l in links if l.get('title') == 'pdf'), None)
+    
+    result = {
+        'title': entry.find('arxiv:title', ns).text.strip(),
+        'authors': [author.find('arxiv:name', ns).text for author in entry.findall('arxiv:author', ns)],
+        'summary': entry.find('arxiv:summary', ns).text.strip(),
+        'published': entry.find('arxiv:published', ns).text,
+        'link': entry.find('arxiv:id', ns).text,
+        'pdf_url': pdf_url
+    }
+    
+    # Save PDF if requested
+    if save_pdf and pdf_url:
+        pdf_response = httpx.get(pdf_url)
+        if pdf_response.status_code == 200:
+            pdf_filename = f"{arxiv_id}{'v'+version_num if version_num else ''}.pdf"
+            pdf_path = os.path.join(save_dir, pdf_filename)
+            with open(pdf_path, 'wb') as f:
+                f.write(pdf_response.content)
+            result['pdf_path'] = pdf_path
+    
+    # Always try to get source files
+    source_url = f'https://arxiv.org/e-print/{arxiv_id}{"v"+version_num if version_num else ""}'
+    try:
+        source_response = httpx.get(source_url)
+        if source_response.status_code == 200:
+            # Try to extract main tex file from tar archive
+            tar_content = io.BytesIO(source_response.content)
+            with tarfile.open(fileobj=tar_content, mode='r:*') as tar:
+                # Look for main tex file
+                tex_files = [f for f in tar.getnames() if f.endswith('.tex')]
+                if tex_files:
+                    main_tex = tar.extractfile(tex_files[0])
+                    result['source'] = main_tex.read().decode('utf-8', errors='ignore')
+    except Exception as e:
+        result['source_error'] = str(e)
+    
+    return result
