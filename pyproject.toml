@@ -3,19 +3,16 @@ requires = ["setuptools>=64"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name="contextkit"
+name = "contextkit"
 dynamic = ["version"]
 description = "Reusable contexts for LLMs"
 readme = "README.md"
-requires-python=">=3.10"
+requires-python = ">=3.10"
 license = {text = "Apache-2.0"}
 authors = [{name = "Isaac Flath", email = "isaac.flath@gmail.com"}]
 keywords = ['nbdev', 'jupyter', 'notebook', 'python']
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3 :: Only",
-]
-dependencies = ["python-fasthtml","httpx","toolslm","fastcore","llms-txt","pypdf","youtube_transcript_api","pytube","playwrightnb"]
+classifiers = ["Natural Language :: English", "Intended Audience :: Developers", "Development Status :: 3 - Alpha", "Programming Language :: Python :: 3", "Programming Language :: Python :: 3 :: Only"]
+dependencies = ['python-fasthtml', 'httpx', 'toolslm', 'fastcore', 'llms-txt', 'pypdf', 'youtube_transcript_api', 'pytube', 'playwrightnb']
 
 [project.urls]
 Repository = "https://github.com/AnswerDotAI/contextkit"
