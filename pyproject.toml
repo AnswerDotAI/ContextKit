@@ -15,7 +15,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
 ]
-dependencies = []
+dependencies = ["python-fasthtml","httpx","toolslm","fastcore","llms-txt","pypdf","youtube_transcript_api","pytube","playwrightnb"]
 
 [project.urls]
 Repository = "https://github.com/AnswerDotAI/contextkit"
