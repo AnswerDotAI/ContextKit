@@ -14,4 +14,4 @@ jobs:
         run: |
           pip install playwrightnb
           playwright install
-      - uses: fastai/workflows/nbdev-ci@master
+      - uses: fastai/workflows/nbdev3-ci@master
