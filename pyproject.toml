@@ -28,4 +28,5 @@ version = {attr = "contextkit.__version__"}
 include = ["contextkit"]
 
 [tool.nbdev]
+allowed_metadata_keys = ['solveit_dialog_mode', 'solveit_ver']
 custom_sidebar = false
